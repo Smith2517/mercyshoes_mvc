@@ -1,0 +1,16 @@
+:root {
+  /* ====== Paleta principal ====== */
+  --color-primary: #ff69b4;       /* Rosa fuerte (botones) */
+  --color-primary-dark: #ff1493;  /* Rosa intenso (hover) */
+  --color-secondary: #ffb6c1;     /* Rosa pastel (header, footer) */
+  --color-bg: #fff9fb;            /* Fondo general */
+  --color-light: #ffe4ec;         /* Rosado claro (tablas, alertas) */
+  
+  /* ====== Texto ====== */
+  --color-text: #333;
+  --color-text-light: #fff;
+
+  /* ====== Extras ====== */
+  --radius: 16px;
+  --transition: all .2s ease-in-out;
+}
