@@ -1,5 +1,5 @@
 /* --- Catálogo de productos (horizontal + responsive) --- */
-.catalog-page .grid {
+.grid {
   display: flex;               /* fila por defecto */
   flex-direction: row;         /* fuerza horizontal */
   flex-wrap: wrap;             /* salta a la siguiente línea cuando no hay espacio */
@@ -9,7 +9,7 @@
 }
 
 /* Cada card ocupa entre 240 y 320px y se adapta al espacio */
-.catalog-page .card {
+.card {
   flex: 1 1 260px;             /* grow | shrink | base */
   min-width: 240px;
   max-width: 320px;
@@ -22,19 +22,19 @@
   transition: transform .3s ease, box-shadow .3s ease;
 }
 
-.catalog-page .card:hover {
+.card:hover {
   transform: translateY(-6px);
   box-shadow: 0 12px 25px rgba(0,0,0,.15);
 }
 
-.catalog-page .card img {
+.card img {
   width: 100%;
   aspect-ratio: 4 / 3;         /* altura consistente */
   object-fit: cover;
   border-bottom: 1px solid #eee;
 }
 
-.catalog-page .card .p {
+.card .p {
   flex: 1;                     /* empuja botones al final si hace falta */
   padding: 16px;
   text-align: center;
@@ -43,15 +43,15 @@
   gap: 8px;
 }
 
-.catalog-page .price { font-weight: 700; margin: 8px 0 12px; }
+.price { font-weight: 700; margin: 8px 0 12px; }
 
 /* Botones */
-.catalog-page .btn { display: inline-block; padding: 10px 16px; border-radius: 8px; font-weight: 600; }
-.catalog-page .btn + .btn { margin-left: 8px; }
+.btn { display: inline-block; padding: 10px 16px; border-radius: 8px; font-weight: 600; }
+.btn + .btn { margin-left: 8px; }
 
 /* Ajuste fino en pantallas muy anchas (opcional) */
 @media (min-width: 1200px) {
-  .catalog-page .card { flex-basis: 280px; }
+  .card { flex-basis: 280px; }
 }
 
 /* Modal */
