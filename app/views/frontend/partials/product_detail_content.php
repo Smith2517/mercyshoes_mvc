@@ -7,6 +7,8 @@
     <p><?php echo nl2br(htmlspecialchars($product['description'])); ?></p>
     <p>Stock: <strong><?php echo (int)$product['stock']; ?></strong></p>
     <div class="price">S/ <?php echo number_format($product['price'],2); ?></div>
+    <a class="btn" href="<?php echo BASE_URL; ?>?r=cart/add/<?php echo $product['id']; ?>" data-cart-action="add" data-modal-title="Carrito de compras">Añadir al carrito</a>
+=======
     <a class="btn" href="<?php echo BASE_URL; ?>?r=cart/add/<?php echo $product['id']; ?>">Añadir al carrito</a>
   </div>
 </div>
