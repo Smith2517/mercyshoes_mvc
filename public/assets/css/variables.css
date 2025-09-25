@@ -7,8 +7,8 @@
   --color-light: #ffe4ec;         /* Rosado claro (tablas, alertas) */
   
   /* ====== Texto ====== */
-  --color-text: #333;
-  --color-text-light: #fff;
+  --color-text: #000000;
+  --color-text-light: #ffffff;
 
   /* ====== Extras ====== */
   --radius: 16px;

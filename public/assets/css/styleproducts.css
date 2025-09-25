@@ -1,0 +1,108 @@
+/* --- Catálogo de productos (horizontal + responsive) --- */
+.grid {
+  display: flex;               /* fila por defecto */
+  flex-direction: row;         /* fuerza horizontal */
+  flex-wrap: wrap;             /* salta a la siguiente línea cuando no hay espacio */
+  gap: 24px;                   /* espacio entre cards */
+  justify-content: center;     /* centra las filas */
+  align-items: stretch;        /* mismas alturas visuales */
+}
+
+/* Cada card ocupa entre 240 y 320px y se adapta al espacio */
+.card {
+  flex: 1 1 260px;             /* grow | shrink | base */
+  min-width: 240px;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 6px 15px rgba(0,0,0,.08);
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 25px rgba(0,0,0,.15);
+}
+
+.card img {
+  width: 100%;
+  aspect-ratio: 4 / 3;         /* altura consistente */
+  object-fit: cover;
+  border-bottom: 1px solid #eee;
+}
+
+.card .p {
+  flex: 1;                     /* empuja botones al final si hace falta */
+  padding: 16px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.price { font-weight: 700; margin: 8px 0 12px; }
+
+/* Botones */
+.btn { display: inline-block; padding: 10px 16px; border-radius: 8px; font-weight: 600; }
+.btn + .btn { margin-left: 8px; }
+
+/* Ajuste fino en pantallas muy anchas (opcional) */
+@media (min-width: 1200px) {
+  .card { flex-basis: 280px; }
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 1000;
+}
+
+.modal-overlay.active { display: flex; }
+
+.modal {
+  background: #fff;
+  border-radius: 16px;
+  width: min(900px, 100%);
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.25);
+  padding: 32px 28px;
+  position: relative;
+}
+
+.modal-title {
+  margin: 0 0 16px;
+  font-size: 26px;
+  text-align: left;
+}
+
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  border: none;
+  background: none;
+  font-size: 28px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.modal-loading,
+.modal-error {
+  text-align: center;
+  padding: 40px 0;
+  color: #555;
+}
+
+.modal-error { color: #b3261e; }
+
+body.modal-open { overflow: hidden; }
