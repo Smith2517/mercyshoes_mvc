@@ -1,3 +1,4 @@
+  <link rel="stylesheet" href="public/assets/css/stylesadmin.css">
 <div class="form" style="max-width:420px;margin:40px auto">
   <h2>Ingresar al cPanel</h2>
   <?php if(isset($error)): ?><div class="alert"><?php echo htmlspecialchars($error); ?></div><?php endif; ?>

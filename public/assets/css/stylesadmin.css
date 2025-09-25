@@ -1,0 +1,204 @@
+/* ====== ESTILOS GENERALES ====== */
+body.admin-body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #fa98e4;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 20px;
+}
+
+/* ====== HEADER ====== */
+.admin-header {
+  background: #0f1833; /* azul oscuro corporativo */
+  color: #fff;
+  padding: 15px 0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.admin-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.admin-header strong {
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+}
+
+.admin-header nav {
+  display: flex;
+  gap: 18px;
+}
+
+.admin-header nav a {
+  color: #dfe6e9;
+  text-decoration: none;
+  font-size: 0.95rem;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.admin-header nav a:hover {
+  background: #2d3d6e;
+  color: #fff;
+}
+
+/* Link especial para "Salir" */
+.admin-header nav a[href*="logout"] {
+  background: #e84118;
+  color: #fff;
+  font-weight: bold;
+}
+
+.admin-header nav a[href*="logout"]:hover {
+  background: #c23616;
+}
+
+/* Link especial "Ver tienda" */
+.admin-header nav a[target="_blank"] {
+  background: #009432;
+  color: #fff;
+  font-weight: bold;
+}
+
+.admin-header nav a[target="_blank"]:hover {
+  background: #006f24;
+}
+
+/* ====== MAIN ====== */
+main.container {
+  margin-top: 25px;
+  background: #fff;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+/* ====== BOTONES REUTILIZABLES ====== */
+.btn {
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background: #0f1833;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: #2d3d6e;
+}
+
+.btn-danger {
+  background: #e84118;
+  color: #fff;
+}
+
+.btn-danger:hover {
+  background: #c23616;
+}
+
+.btn-success {
+  background: #009432;
+  color: #fff;
+}
+
+.btn-success:hover {
+  background: #006f24;
+}
+
+
+/* ====== LOGIN FORM ====== */
+.form {
+  background: #fff;
+  padding: 30px 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+  text-align: center;
+}
+
+.form h2 {
+  margin-bottom: 20px;
+  font-size: 1.4rem;
+  color: #0f1833;
+  font-weight: 600;
+}
+
+.form label {
+  display: block;
+  text-align: left;
+  margin: 12px 0 5px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.form input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form input:focus {
+  border-color: #0f1833;
+  box-shadow: 0 0 4px rgba(15, 24, 51, 0.4);
+  outline: none;
+}
+
+.form .btn {
+  margin-top: 20px;
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  background: #0f1833;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.form .btn:hover {
+  background: #2d3d6e;
+}
+
+/* Mensaje de error */
+.alert {
+  background: #e84118;
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* Texto de usuario demo */
+.form p {
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.form code {
+  background: #f1f2f6;
+  padding: 3px 6px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+}
