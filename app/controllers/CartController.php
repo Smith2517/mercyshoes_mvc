@@ -29,7 +29,13 @@ class CartController extends Controller {
             $_SESSION['cart'][$id] = ['id'=>$p['id'],'name'=>$p['name'],'price'=>$p['price'],'qty'=>1];
         }
         if($this->isAjax()){
+
             $this->respondCartAjax($this->cartItems());
+=======
+            $cart = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
+            $this->renderPartial('frontend/partials/cart_content', compact('cart'));
+            return;
+
         }
         $this->redirect('cart/view');
     }
@@ -54,9 +60,16 @@ class CartController extends Controller {
         $this->redirect('cart/view');
     }
     public function view(){
+
         $cart = $this->cartItems();
         if($this->isAjax()){
             $this->respondCartAjax($cart);
+=======
+        $cart = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
+        if($this->isAjax()){
+            $this->renderPartial('frontend/partials/cart_content', compact('cart'));
+            return;
+
         }
         $this->render('frontend/cart', compact('cart'));
     }
