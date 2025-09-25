@@ -9,6 +9,11 @@ class CartController extends Controller {
         } else {
             $_SESSION['cart'][$id] = ['id'=>$p['id'],'name'=>$p['name'],'price'=>$p['price'],'qty'=>1];
         }
+        if($this->isAjax()){
+            $cart = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
+            $this->renderPartial('frontend/partials/cart_content', compact('cart'));
+            return;
+        }
         $this->redirect('cart/view');
     }
     public function remove($id){
@@ -27,6 +32,10 @@ class CartController extends Controller {
     }
     public function view(){
         $cart = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
+        if($this->isAjax()){
+            $this->renderPartial('frontend/partials/cart_content', compact('cart'));
+            return;
+        }
         $this->render('frontend/cart', compact('cart'));
     }
     public function clear(){
