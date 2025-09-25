@@ -36,8 +36,8 @@
       <strong><?php echo htmlspecialchars($p['name']); ?></strong><br>
       <small><?php echo htmlspecialchars($p['category_name'] ?? ''); ?></small>
       <div class="price">S/ <?php echo number_format($p['price'],2); ?></div>
-      <a class="btn" href="<?php echo BASE_URL; ?>?r=cart/add/<?php echo $p['id']; ?>">Añadir</a>
-      <a class="btn light" href="<?php echo BASE_URL; ?>?r=product/show/<?php echo $p['id']; ?>">Detalle</a>
+      <a class="btn" href="<?php echo BASE_URL; ?>?r=cart/add/<?php echo $p['id']; ?>" data-cart-action="add" data-modal-title="Carrito de compras">Añadir</a>
+      <a class="btn light" href="<?php echo BASE_URL; ?>?r=product/show/<?php echo $p['id']; ?>" data-modal="detail" data-modal-title="Detalle del producto">Detalle</a>
     </div>
   </div>
 <?php endforeach; ?>

@@ -11,6 +11,26 @@ class Controller {
         }
         include $layoutFile;
     }
+
+    protected function renderPartial($viewPath, $data = []) {
+        echo $this->renderPartialToString($viewPath, $data);
+    }
+
+    protected function renderPartialToString($viewPath, $data = []) {
+        $viewFile = __DIR__ . '/../app/views/' . $viewPath . '.php';
+        if (!file_exists($viewFile)) {
+            http_response_code(404);
+            return "<h2>Vista no encontrada: $viewPath</h2>";
+        }
+        extract($data);
+        ob_start();
+        include $viewFile;
+        return ob_get_clean();
+    }
+
+    protected function isAjax() {
+        return !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
+    }
     protected function redirect($route) {
         $url = BASE_URL . '?r=' . urlencode($route);
         header("Location: $url");
