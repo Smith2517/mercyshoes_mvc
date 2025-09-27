@@ -29,14 +29,14 @@ document.addEventListener('DOMContentLoaded', function(){
   const modalContent = document.getElementById('modal-content');
   const modalTitle = document.getElementById('modal-title');
   const closeBtn = overlay.querySelector('.modal-close');
+  const BASE = "<?php echo BASE_URL; ?>";
 
   function openModal(title){
-    modalTitle.textContent = title;
+    modalTitle.textContent = title || '';
     overlay.hidden = false;
     overlay.classList.add('active');
     document.body.classList.add('modal-open');
   }
-
   function closeModal(){
     overlay.classList.remove('active');
     overlay.hidden = true;
@@ -44,48 +44,114 @@ document.addEventListener('DOMContentLoaded', function(){
     modalTitle.textContent = '';
     modalContent.innerHTML = '';
   }
-
+  function fetchHTML(url, opts) {
+    return fetch(url, {
+      headers: { 'X-Requested-With': 'XMLHttpRequest' },
+      credentials: 'same-origin',
+      ...opts
+    }).then(r => { if (!r.ok) throw new Error('Network error'); return r.text(); });
+  }
   function fetchModal(url, title){
     modalContent.innerHTML = '<p class="modal-loading">Cargando...</p>';
     openModal(title);
-    fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' }})
-      .then(function(response){
-        if(!response.ok){ throw new Error('Error de red'); }
-        return response.text();
-      })
-      .then(function(html){
-        modalContent.innerHTML = html;
-      })
-      .catch(function(){
-        modalContent.innerHTML = '<p class="modal-error">No se pudo cargar la información. Intenta nuevamente.</p>';
-      });
+    fetchHTML(url).then(html=>{
+      modalContent.innerHTML = html;
+      wireInsideModal();
+    }).catch(()=>{
+      modalContent.innerHTML = '<p class="modal-error">No se pudo cargar la información. Intenta nuevamente.</p>';
+    });
   }
 
-  closeBtn.addEventListener('click', closeModal);
-  overlay.addEventListener('click', function(event){
-    if(event.target === overlay){ closeModal(); }
-  });
-  document.addEventListener('keydown', function(event){
-    if(event.key === 'Escape' && !overlay.hidden){
-      event.preventDefault();
-      closeModal();
+  function wireInsideModal(){
+    // Enlaces internos del carrito/checkout
+    modalContent.querySelectorAll('a[href]').forEach(a => {
+      const href = a.getAttribute('href') || '';
+      if (/\?r=cart\/remove\//.test(href) || /\?r=cart\/clear/.test(href) || /\?r=cart(\/|$)/.test(href) || /\?r=checkout\/form/.test(href)) {
+        a.addEventListener('click', function(e){
+          e.preventDefault();
+          e.stopPropagation();
+          modalContent.innerHTML = '<p class="modal-loading">Cargando...</p>';
+          fetchHTML(href).then(html=>{
+            modalContent.innerHTML = html;
+            wireInsideModal();
+          }).catch(()=>{
+            modalContent.innerHTML = '<p class="modal-error">No se pudo cargar. Intenta nuevamente.</p>';
+          });
+        }, { once:true });
+      }
+    });
+
+    // Form actualizar cantidades
+    const formCart = modalContent.querySelector('form[action*="?r=cart/update"]');
+    if (formCart) {
+      formCart.addEventListener('submit', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        const fd = new FormData(formCart);
+        modalContent.innerHTML = '<p class="modal-loading">Actualizando...</p>';
+        fetchHTML(formCart.action, { method:'POST', body: fd }).then(html=>{
+          modalContent.innerHTML = html;
+          wireInsideModal();
+        }).catch(()=>{
+          modalContent.innerHTML = '<p class="modal-error">No se pudo actualizar. Intenta nuevamente.</p>';
+        });
+      }, { once:true });
     }
-  });
 
-  document.querySelectorAll('.add-to-cart').forEach(function(link){
-    link.addEventListener('click', function(event){
-      event.preventDefault();
-      fetchModal(link.href, 'Carrito de compras');
-    });
-  });
+    // Form de pago
+    const formPay = modalContent.querySelector('form[action*="?r=checkout/pay"]');
+    if (formPay) {
+      if (!/partial=1/.test(formPay.action)) {
+        formPay.action += (formPay.action.includes('?')?'&':'?') + 'partial=1';
+      }
+      formPay.addEventListener('submit', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        const fd = new FormData(formPay);
+        modalContent.innerHTML = '<p class="modal-loading">Procesando pago...</p>';
+        fetchHTML(formPay.action, { method:'POST', body: fd }).then(html=>{
+          modalContent.innerHTML = html;
+          wireInsideModal();
+        }).catch(()=>{
+          modalContent.innerHTML = '<p class="modal-error">No se pudo procesar. Intenta nuevamente.</p>';
+        });
+      }, { once:true });
+    }
+  }
 
-  document.querySelectorAll('.view-detail').forEach(function(link){
-    link.addEventListener('click', function(event){
-      event.preventDefault();
-      fetchModal(link.href, 'Detalle del producto');
-    });
-  });
+  // Cerrar modal
+  closeBtn.addEventListener('click', closeModal);
+  overlay.addEventListener('click', function(event){ if(event.target === overlay){ closeModal(); }});
+  document.addEventListener('keydown', function(event){ if(event.key === 'Escape' && !overlay.hidden){ event.preventDefault(); closeModal(); } });
+
+  // *********** ÚNICO delegado global (no uses listeners individuales .add-to-cart) ***********
+  document.addEventListener('click', function(e){
+    const a = e.target.closest && e.target.closest('a'); if(!a) return;
+    const href = a.getAttribute('href') || '';
+
+    // ADD al carrito
+    if (/\?r=cart\/add\//.test(href)) {
+      e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();
+      fetchHTML(href).then(()=> {
+        fetchModal(BASE + '?r=cart/view', 'Carrito de compras');
+      }).catch(()=>{ /* no-op */ });
+      return;
+    }
+
+    // Ver carrito
+    if (/\?r=cart(\/|$)/.test(href)) {
+      e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();
+      fetchModal(href, 'Carrito de compras');
+      return;
+    }
+
+    // Checkout
+    if (/\?r=checkout\/form/.test(href)) {
+      e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();
+      fetchModal(href, 'Finalizar compra');
+      return;
+    }
+  }, true); // captura
 });
-
 </script>
 
