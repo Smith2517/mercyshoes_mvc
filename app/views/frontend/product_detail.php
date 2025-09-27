@@ -1,1 +1,3 @@
+
 <?php include __DIR__ . '/partials/product_detail_content.php'; ?>
+
