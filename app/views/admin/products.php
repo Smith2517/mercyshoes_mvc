@@ -1,6 +1,9 @@
 <h1>Productos</h1>
-<p><a class="btn" href="<?php echo BASE_URL; ?>?r=admin/product_create">Nuevo producto</a></p>
-<table class="table">
+<p>
+  <a class="btn" href="<?php echo BASE_URL; ?>?r=admin/product_create">
+    <span class="badge badge-primary">Nuevo producto</span>
+  </a>
+</p><table class="table">
   <thead><tr><th>#</th><th>Imagen</th><th>Nombre</th><th>Categoría</th><th>Precio</th><th>Stock</th><th></th></tr></thead>
   <tbody>
   <?php foreach($products as $p): ?>
