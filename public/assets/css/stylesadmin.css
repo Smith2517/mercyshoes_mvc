@@ -1,0 +1,546 @@
+/* ====== ESTILOS GENERALES ====== */
+body.admin-body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #fa98e4;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 20px;
+}
+
+/* ====== HEADER ====== */
+.admin-header {
+  background: #0f1833; /* azul oscuro corporativo */
+  color: #fff;
+  padding: 15px 0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.admin-header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.admin-header strong {
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+}
+
+.admin-header nav {
+  display: flex;
+  gap: 18px;
+}
+
+.admin-header nav a {
+  color: #dfe6e9;
+  text-decoration: none;
+  font-size: 0.95rem;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.admin-header nav a:hover {
+  background: #2d3d6e;
+  color: #fff;
+}
+
+/* Link especial para "Salir" */
+.admin-header nav a[href*="logout"] {
+  background: #e84118;
+  color: #fff;
+  font-weight: bold;
+}
+
+.admin-header nav a[href*="logout"]:hover {
+  background: #c23616;
+}
+
+/* Link especial "Ver tienda" */
+.admin-header nav a[target="_blank"] {
+  background: #009432;
+  color: #fff;
+  font-weight: bold;
+}
+
+.admin-header nav a[target="_blank"]:hover {
+  background: #006f24;
+}
+
+/* ====== MAIN ====== */
+main.container {
+  margin-top: 25px;
+  background: #fff;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+/* ====== BOTONES REUTILIZABLES ====== */
+.btn {
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.btn-primary {
+  background: #0f1833;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: #2d3d6e;
+}
+
+.btn-danger {
+  background: #e84118;
+  color: #fff;
+}
+
+.btn-danger:hover {
+  background: #c23616;
+}
+
+.btn-success {
+  background: #009432;
+  color: #fff;
+}
+
+.btn-success:hover {
+  background: #006f24;
+}
+
+
+/* ====== LOGIN FORM ====== */
+.form {
+  background: #fff;
+  padding: 30px 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+  text-align: center;
+}
+
+.form h2 {
+  margin-bottom: 20px;
+  font-size: 1.4rem;
+  color: #0f1833;
+  font-weight: 600;
+}
+
+.form label {
+  display: block;
+  text-align: left;
+  margin: 12px 0 5px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.form input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form input:focus {
+  border-color: #0f1833;
+  box-shadow: 0 0 4px rgba(15, 24, 51, 0.4);
+  outline: none;
+}
+
+.form .btn {
+  margin-top: 20px;
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  background: #ee9ce4;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  text-align: center;
+}
+
+.form .btn:hover {
+  background: #b12aa3;
+}
+
+/* Mensaje de error */
+.alert {
+  background: #e84118;
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* Texto de usuario demo */
+.form p {
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.form code {
+  background: #f1f2f6;
+  padding: 3px 6px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+}
+
+/* =========================
+   Tabla de Pedidos (estilo pro)
+   ========================= */
+:root{
+  --surface: #ffffff;
+  --surface-2: #f6f8fc;
+  --text: #0f172a;
+  --muted: #475569;
+  --border: #e5e7eb;
+  --primary: #2563eb;
+  --radius: 14px;
+  --shadow: 0 8px 24px rgba(0,0,0,.06);
+}
+
+@media (prefers-color-scheme: dark){
+  :root{
+    --surface: #ffa4ff;
+    --surface-2: #ffa4ff;
+    --text: #000000;
+    --muted: #94a3b8;
+    --border: #1f2a3a;
+    --primary: #3b82f6;
+    --shadow: 0 12px 36px rgba(0,0,0,.45);
+  }
+}
+
+/* Título */
+h1{
+  margin: 4px 0 14px;
+  font-size: clamp(1.35rem, 1.1rem + 1vw, 1.9rem);
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.015em;
+  text-align: center;
+}
+
+/* Tabla */
+.table{
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+/* Encabezado */
+.table thead th{
+  padding: 14px 16px;
+  text-align: left;
+  font-weight: 700;
+  font-size: .875rem;
+  color: var(--text);
+  letter-spacing: .02em;
+  background:
+    linear-gradient(180deg, rgba(0,0,0,.03), transparent) ,
+    var(--surface-2);
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+/* Celdas */
+.table tbody td{
+  padding: 14px 16px;
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+
+/* Listrado sutil */
+.table tbody tr:nth-child(odd) td{
+  background: #009432;
+}
+@supports not (color-mix(in srgb, #000 50%, #fff 50%)){
+  .table tbody tr:nth-child(odd) td{ background: var(--surface-2); }
+}
+
+/* Hover de fila */
+.table tbody tr:hover td{
+  background: rgba(37,99,235,.06);
+}
+@media (prefers-color-scheme: dark){
+  .table tbody tr:hover td{ background: rgba(59,130,246,.12); }
+}
+
+/* Bordes finales limpios */
+.table tbody tr:last-child td{ border-bottom: none; }
+
+/* Alineaciones útiles */
+.table tbody td:nth-child(1){ /* # */
+  text-align: center; width: 72px; font-variant-numeric: tabular-nums;
+}
+.table tbody td:nth-child(3){ /* Fecha */
+  white-space: nowrap; font-variant-numeric: tabular-nums;
+}
+.table tbody td:nth-child(4){ /* Total */
+  text-align: right; font-weight: 700; font-variant-numeric: tabular-nums;
+}
+.table thead th:nth-child(4){ text-align: right; }
+
+/* Botón "Ver" */
+.btn{
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .5rem .9rem;
+  border-radius: 999px;
+  font-weight: 700;
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: background .2s ease, color .2s ease, border-color .2s ease,
+              transform .06s ease, box-shadow .2s ease;
+}
+.btn.light{
+  background: #e40754;
+  border-color: var(--border);
+  color: var(--text);
+  text-align: center;
+  
+}
+.btn.light:hover{
+  background: #f23e0d;
+  border-color: var(--primary);
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(37,99,235,.25);
+}
+.btn.light:active{ transform: translateY(0); box-shadow: none; }
+.btn.light:focus-visible{
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(37,99,235,.35);
+}
+
+/* Píldoras de estado (opcional):
+   En tu <td> de estado, añade data-status="Pendiente|Pagado|Cancelado|Enviado|Entregado|Procesando|Anulado"
+   Ej: <td data-status="Pendiente">Pendiente</td> */
+.table td[data-status]{
+  white-space: nowrap;
+}
+.table td[data-status]::before{
+  content: attr(data-status);
+  display: inline-block;
+  padding: .35rem .6rem;
+  border-radius: 999px;
+  font-size: .75rem;
+  font-weight: 800;
+  letter-spacing: .02em;
+  border: 1px solid transparent;
+}
+.table td[data-status="PAGADO" i]::before{
+  background: rgba(16,185,129,.12); color:#047857; border-color: rgba(16,185,129,.35);
+}
+.table td[data-status="Pendiente" i]::before{
+  background: rgba(245,158,11,.12); color:#92400e; border-color: rgba(245,158,11,.35);
+}
+.table td[data-status="Procesando" i],
+.table td[data-status="Enviado" i]::before{
+  background: rgba(59,130,246,.12); color:#1e40af; border-color: rgba(59,130,246,.35);
+}
+.table td[data-status="Entregado" i]::before{
+  background: rgba(34,197,94,.12); color:#166534; border-color: rgba(34,197,94,.35);
+}
+.table td[data-status="Cancelado" i],
+.table td[data-status="Anulado" i]::before{
+  background: rgba(239,68,68,.12); color:#7f1d1d; border-color: rgba(239,68,68,.30);
+}
+
+/* Responsivo: scroll horizontal suave si se necesita */
+.table{ max-width: 100%; }
+@media (max-width: 720px){
+  .table{ display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .table thead th{ position: sticky; top: 0; z-index: 1; }
+}
+
+.badge{
+  display:inline-block;
+  padding:.35rem .6rem;
+  font-size:.78rem;
+  font-weight:800;
+  line-height:1;
+  border-radius:999px;
+  vertical-align:middle;
+}
+.badge-primary,
+.badge.text-bg-primary,
+.badge.bg-primary{
+  background: #f24936;
+  color:#fff;
+  border:1px solid rgba(37,99,235,.28);
+  box-shadow: 0 6px 16px rgba(37,99,235,.22);
+}
+/* Opcional: mejor espaciado dentro del botón */
+.btn .badge{ margin-left:.25rem; }
+
+
+/* ===== HOTFIX: Formulario producto (no rompe nada existente) ===== */
+form[action*="admin/product_"] *, 
+form[action*="admin/product_"] *::before, 
+form[action*="admin/product_"] *::after{
+  box-sizing: border-box;
+}
+
+/* Igualar estilos de SELECT y TEXTAREA a tus inputs */
+form[action*="admin/product_"] select,
+form[action*="admin/product_"] textarea{
+  display: block;
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: .95rem;
+  color: #333;
+  background: #fff;
+  line-height: 1.2;
+}
+
+/* Devolver flecha nativa y altura correcta del SELECT */
+form[action*="admin/product_"] select{
+  appearance: auto !important;
+  -webkit-appearance: auto !important;
+  -moz-appearance: auto !important;
+  background-image: none !important;
+  min-height: 42px;
+}
+
+/* Alinear alturas de inputs y textarea */
+form[action*="admin/product_"] input[type="text"],
+form[action*="admin/product_"] input[type="number"]{
+  min-height: 42px;
+}
+form[action*="admin/product_"] textarea{
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* Quitar “spinners” y alinear números */
+form[action*="admin/product_"] input[type="number"]::-webkit-outer-spin-button,
+form[action*="admin/product_"] input[type="number"]::-webkit-inner-spin-button{
+  -webkit-appearance: none; margin: 0;
+}
+form[action*="admin/product_"] input[type="number"]{
+  -moz-appearance: textfield;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Evitar desbordes en la fila Precio/Stock */
+form[action*="admin/product_"] > div[style*="display:flex"] > div > input{
+  width: 100%;
+}
+
+/* Focus consistente (mismo look que tus inputs) */
+form[action*="admin/product_"] :is(select, textarea, input):focus{
+  border-color: #0f1833;
+  box-shadow: 0 0 4px rgba(15,24,51,.4);
+  outline: none;
+}
+/* ===== CATEGORÍAS – Override final y estable ===== */
+
+/* 1) Crear categoría (izquierda): asegurar ancho completo y alturas */
+.grid[style*="grid-template-columns:1fr 2fr"] form[action*="category_store"] textarea{
+  width: 100% !important;
+  min-height: 120px;
+  box-sizing: border-box;
+}
+.grid[style*="grid-template-columns:1fr 2fr"] form[action*="category_store"] input,
+.grid[style*="grid-template-columns:1fr 2fr"] form[action*="category_store"] textarea{
+  min-height: 42px;
+}
+
+/* 2) Celda de ACCIONES (derecha): un solo layout con FLEX, sin solapes */
+.grid[style*="grid-template-columns:1fr 2fr"] .table tbody tr > td:last-child{
+  display: flex !important;           /* anula grids/otros anteriores */
+  align-items: center;
+  gap: 10px;
+  flex-wrap: nowrap;                  /* no se apilan salvo en responsive */
+  white-space: normal !important;
+  min-width: 0;                       /* permite contraer sin desbordar */
+}
+
+/* El form inline participa como bloque flexible (no 'contents') */
+.grid[style*="grid-template-columns:1fr 2fr"] .table tbody tr > td:last-child form[action*="category_update"]{
+  display: flex !important;
+  gap: 10px;
+  align-items: center;
+  flex: 1 1 auto;                     /* ocupa lo disponible */
+  min-width: 0;
+}
+
+/* Inputs: crecen/encogen sin montarse, mismo alto */
+.grid[style*="grid-template-columns:1fr 2fr"] .table tbody tr > td:last-child form[action*="category_update"] input{
+  flex: 1 1 0;
+  min-width: 120px;
+  max-width: 100%;
+  box-sizing: border-box;
+  min-height: 40px;
+}
+
+/* Botones: MISMO tamaño y sin heredar width:100% del login */
+.grid[style*="grid-template-columns:1fr 2fr"] .table tbody tr > td:last-child form[action*="category_update"] .btn,
+.grid[style*="grid-template-columns:1fr 2fr"] .table tbody tr > td:last-child a.btn{
+  width: 136px !important;
+  height: 40px;
+  padding: 0 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  flex: 0 0 136px;                    /* fija el ancho y evita estiramiento */
+}
+
+/* Botón Eliminar en rojo solo aquí */
+.grid[style*="grid-template-columns:1fr 2fr"] .table tbody tr > td:last-child a.btn.light[href*="category_delete"]{
+  background: #e84118;
+  color: #fff;
+  border-color: #e84118;
+}
+.grid[style*="grid-template-columns:1fr 2fr"] .table tbody tr > td:last-child a.btn.light[href*="category_delete"]:hover{
+  background: #c23616;
+}
+
+/* 3) Responsive: cuando no quepa, se apilan ordenados */
+@media (max-width: 980px){
+  .grid[style*="grid-template-columns:1fr 2fr"] .table tbody tr > td:last-child{
+    flex-wrap: wrap;                   /* ahora sí permite salto de línea */
+  }
+  .grid[style*="grid-template-columns:1fr 2fr"] .table tbody tr > td:last-child form[action*="category_update"]{
+    flex-wrap: wrap;
+  }
+  .grid[style*="grid-template-columns:1fr 2fr"] .table tbody tr > td:last-child form[action*="category_update"] input{
+    flex: 1 1 100%;
+  }
+  .grid[style*="grid-template-columns:1fr 2fr"] .table tbody tr > td:last-child .btn{
+    width: 100% !important;            /* botones a lo ancho en móvil */
+    flex: 1 1 100%;
+  }
+}

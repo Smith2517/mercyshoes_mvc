@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Admin | Mercyshoes</title>
-  <link rel="stylesheet" href="public/assets/css/style.css">
+  <link rel="stylesheet" href="public/assets/css/stylesadmin.css">
 </head>
 <body class="admin-body">
 <header class="admin-header">
@@ -20,6 +20,7 @@
       <a href="<?php echo BASE_URL; ?>?r=admin/reports">Reportes</a>
       <a href="<?php echo BASE_URL; ?>?r=admin/settings">Ajustes</a>
       <a href="<?php echo BASE_URL; ?>?r=admin/logout">Salir</a>
+      <a href="<?php echo BASE_URL; ?>" target="_blank" >Ver tienda</a>
     </nav>
   </div>
 </header>

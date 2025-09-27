@@ -7,6 +7,17 @@
 /* ==========================
    Hero Slider (Mercyshoes)
    ========================== */
+main {
+  flex: 1;               /* El main crece para ocupar el espacio disponible */
+}
+
+html, body {
+  height: 100%;          /* Que el body ocupe toda la altura */
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
 
 .hero-slider {
   position: relative;
@@ -93,7 +104,7 @@
 }
 body {
   font-family: 'Poppins', Arial, sans-serif;
-  background: var(--color-bg);
+  background: linear-gradient(180deg, #ee1c4ddd, #f4aeae, #ee1c4ddd);
   color: var(--color-text);
   line-height: 1.6;
 }
@@ -143,7 +154,7 @@ body {
   color: var(--color-text-light);
   text-align: center;
   padding: 20px 0;
-  margin-top: 40px;
+  margin-top: auto;
   font-size: 14px;
 }
 
@@ -287,3 +298,68 @@ body {
 a, .btn {
   transition: var(--transition);
 }
+
+/* ESTILOS CONTACTO */
+.contacto {
+  text-align: center;
+  padding: 60px 20px;
+  background: linear-gradient(135deg, #fcc2eb, #ededed, #f9bfcc);
+}
+
+.titulo-contacto {
+  font-size: 48px;
+  margin-bottom: 10px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  color: #0f1833;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+}
+
+.intro-contacto {
+  font-size: 18px;
+  color: #444;
+  margin-bottom: 40px;
+}
+
+.cards-contacto {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 30px 20px;
+  width: 280px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+}
+
+.card h3 {
+  font-size: 22px;
+  color: #e91e63;
+  margin-bottom: 12px;
+}
+
+.card p {
+  font-size: 16px;
+  color: #151515;
+}
+
+.card a {
+  text-decoration: none;
+  color: #0f1833;
+  font-weight: bold;
+}
+
+.card a:hover {
+  color: #e91e63;
+}
+
