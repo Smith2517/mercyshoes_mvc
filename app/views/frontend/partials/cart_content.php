@@ -25,4 +25,4 @@
       <a class="btn" href="<?php echo BASE_URL; ?>?r=checkout/form">Pagar</a>
     </p>
   </form>
-
+<?php endif; ?>
