@@ -14,6 +14,19 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+
+-- Volcando estructura de base de datos para mercyshoes_db
+CREATE DATABASE IF NOT EXISTS `mercyshoes_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */;
+USE `mercyshoes_db`;
+
+-- Volcando estructura para tabla mercyshoes_db.categories
+CREATE TABLE IF NOT EXISTS `categories` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(120) NOT NULL,
+  `description` text DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 -- Volcando datos para la tabla mercyshoes_db.categories: ~9 rows (aproximadamente)
 INSERT INTO `categories` (`id`, `name`, `description`) VALUES
 	(1, 'Tacones', 'Elegantes y sofisticados'),
@@ -28,13 +41,55 @@ INSERT INTO `categories` (`id`, `name`, `description`) VALUES
 	(10, 'Estiletos Elegantes', 'Tacón fino y acabado impecable que transforman tu outfit en pura elegancia'),
 	(11, 'Confort Base', 'El Equilibrio perfecto entre diseño y comodidad para tus pies');
 
+-- Volcando estructura para tabla mercyshoes_db.orders
+CREATE TABLE IF NOT EXISTS `orders` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `customer_name` varchar(200) NOT NULL,
+  `customer_email` varchar(150) NOT NULL,
+  `customer_phone` varchar(60) DEFAULT '',
+  `customer_address` varchar(255) DEFAULT '',
+  `total` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `status` enum('PENDIENTE','PAGADO','ENVIADO','CANCELADO') DEFAULT 'PENDIENTE',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 -- Volcando datos para la tabla mercyshoes_db.orders: ~0 rows (aproximadamente)
 INSERT INTO `orders` (`id`, `customer_name`, `customer_email`, `customer_phone`, `customer_address`, `total`, `status`, `created_at`) VALUES
 	(1, 'ruth mercy carrasco alarcon', 'ruthmercycarrascoalarcon@gmail.com', '910760921', 'nueva cajamarca', 89.50, 'ENVIADO', '2025-09-21 03:27:00');
 
+-- Volcando estructura para tabla mercyshoes_db.order_items
+CREATE TABLE IF NOT EXISTS `order_items` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `unit_price` decimal(10,2) NOT NULL,
+  `subtotal` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `order_id` (`order_id`),
+  KEY `product_id` (`product_id`),
+  CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 -- Volcando datos para la tabla mercyshoes_db.order_items: ~0 rows (aproximadamente)
 INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `quantity`, `unit_price`, `subtotal`) VALUES
 	(1, 1, 3, 1, 89.50, 89.50);
+
+-- Volcando estructura para tabla mercyshoes_db.products
+CREATE TABLE IF NOT EXISTS `products` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `category_id` int(11) DEFAULT NULL,
+  `name` varchar(200) NOT NULL,
+  `description` text DEFAULT NULL,
+  `price` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `stock` int(11) NOT NULL DEFAULT 0,
+  `image` varchar(255) DEFAULT '',
+  PRIMARY KEY (`id`),
+  KEY `category_id` (`category_id`),
+  CONSTRAINT `products_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Volcando datos para la tabla mercyshoes_db.products: ~48 rows (aproximadamente)
 INSERT INTO `products` (`id`, `category_id`, `name`, `description`, `price`, `stock`, `image`) VALUES
@@ -89,9 +144,33 @@ INSERT INTO `products` (`id`, `category_id`, `name`, `description`, `price`, `st
 	(49, 5, 'Ada Rojo', 'Colección Mediterranea\r\nAlto 1 CM\r\n35-36-37-38-39', 45.00, 6, 'public/uploads/1758747538_60363056-9ec7-4c63-b97d-bd72a7e1632d.jpg'),
 	(50, 5, 'Erika Dorado', 'Colección Mediterranea\r\nAlto 1 CM\r\nCuero Importado\r\n36-37-38-39', 45.00, 4, 'public/uploads/1758747732_d9a48bef-da47-4777-a009-9d8e5a422007.jpg');
 
+-- Volcando estructura para tabla mercyshoes_db.settings
+CREATE TABLE IF NOT EXISTS `settings` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `company_name` varchar(150) NOT NULL,
+  `company_email` varchar(150) NOT NULL,
+  `company_phone` varchar(60) NOT NULL,
+  `company_address` varchar(255) DEFAULT '',
+  `company_ruc` varchar(32) DEFAULT '',
+  `logo_path` varchar(255) DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 -- Volcando datos para la tabla mercyshoes_db.settings: ~0 rows (aproximadamente)
 INSERT INTO `settings` (`id`, `company_name`, `company_email`, `company_phone`, `company_address`, `company_ruc`, `logo_path`) VALUES
 	(1, 'Mercyshoes', 'ventas@mercyshoes.local', '+51 900 000 000', 'Tarapoto, Perú', '00000000000', '');
+
+-- Volcando estructura para tabla mercyshoes_db.users
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(120) NOT NULL,
+  `email` varchar(120) NOT NULL,
+  `password_hash` varchar(255) NOT NULL,
+  `role` enum('admin') DEFAULT 'admin',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Volcando datos para la tabla mercyshoes_db.users: ~0 rows (aproximadamente)
 INSERT INTO `users` (`id`, `name`, `email`, `password_hash`, `role`, `created_at`) VALUES
