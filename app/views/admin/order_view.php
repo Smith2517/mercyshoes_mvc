@@ -2,13 +2,14 @@
 <p><strong>Cliente:</strong> <?php echo htmlspecialchars($order['customer_name']); ?> — <?php echo htmlspecialchars($order['customer_email']); ?></p>
 <p><strong>Dirección:</strong> <?php echo htmlspecialchars($order['customer_address']); ?> | <strong>Tel:</strong> <?php echo htmlspecialchars($order['customer_phone']); ?></p>
 <table class="table">
-<thead><tr><th>Producto</th><th>Cant.</th><th>P.Unit</th><th>Subtotal</th></tr></thead>
+<thead><tr><th>Producto</th><th>Cant.</th><th>P.Unit</th><th>Estado</th><th>Subtotal</th></tr></thead>
 <tbody>
 <?php foreach($items as $it): ?>
   <tr>
     <td><?php echo htmlspecialchars($it['name']); ?></td>
     <td><?php echo (int)$it['quantity']; ?></td>
     <td>S/ <?php echo number_format($it['unit_price'],2); ?></td>
+    <td><?php echo $it['status']; ?></td>
     <td>S/ <?php echo number_format($it['subtotal'],2); ?></td>
   </tr>
 <?php endforeach; ?>
