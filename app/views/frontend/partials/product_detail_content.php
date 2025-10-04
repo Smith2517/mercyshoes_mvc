@@ -12,7 +12,7 @@
 
   </div>
 
-    <a class="btn" href="<?php echo BASE_URL; ?>?r=cart/add/<?php echo $product['id']; ?>">Añadir al carrito</a>
+
   </div>
 </div>
 

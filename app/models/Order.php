@@ -32,7 +32,8 @@ class Order {
         $s=$this->db->prepare('SELECT * FROM orders WHERE id=?'); $s->execute([$id]); return $s->fetch();
     }
     public function items($order_id){
-        $s=$this->db->prepare('SELECT oi.*, p.name FROM order_items oi INNER JOIN products p ON p.id=oi.product_id WHERE oi.order_id=?');
+        $s=$this->db->prepare('SELECT oi.*, p.name, od.`status` FROM order_items oi INNER JOIN products p ON p.id=oi.product_id
+                                INNER JOIN orders od ON od.id=oi.order_id  WHERE oi.order_id=?');
         $s->execute([$order_id]);
         return $s->fetchAll();
     }

@@ -107,3 +107,68 @@
 
 body.modal-open { overflow: hidden; }
 
+/* Opcional: estilos rápidos para "Sobre nosotros" */
+.sobre-nosotros { margin: 24px 0; }
+.titulo-sobre { font-size: 32px; text-align: center; margin: 0 0 8px; }
+.intro-sobre { text-align: center; margin: 0 auto 20px; max-width: 800px; }
+
+.cards-sobre {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.cards-sobre .card {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 6px 18px rgba(0,0,0,.04);
+}
+
+.cards-sobre .card h3 { margin: 0 0 8px; font-size: 18px; }
+.cards-sobre .card p  { margin: 0; line-height: 1.5; }
+
+.cards-sobre a { text-decoration: none; }
+.cards-sobre a:hover { text-decoration: underline; }
+
+/* Contenedor centrado y separación */
+.cards-sobre{
+  max-width: 1100px;   /* ancho legible */
+  margin: 16px auto;
+  display: grid;
+  gap: 16px;           /* separación entre tarjetas */
+}
+
+/* === Layout 1: una sola fila (1x4 en desktop) === */
+.cards-sobre.layout-1x4{
+  grid-template-columns: repeat(4, minmax(220px, 1fr));
+}
+
+/* === Layout 2: dos por dos (2x2 en desktop) === */
+.cards-sobre.layout-2x2{
+  grid-template-columns: repeat(2, minmax(280px, 1fr));
+}
+
+/* Tarjeta (puedes mantener lo que ya tienes) */
+.cards-sobre .card{
+  background:#fff;
+  border:1px solid #eee;
+  border-radius:12px;
+  padding:16px;
+  box-shadow:0 6px 18px rgba(0,0,0,.04);
+}
+
+/* Responsive: en tablets baja a 2 columnas; en móvil, 1 */
+@media (max-width: 1100px){
+  .cards-sobre.layout-1x4{ grid-template-columns: repeat(3, minmax(220px,1fr)); }
+}
+@media (max-width: 900px){
+  .cards-sobre.layout-1x4,
+  .cards-sobre.layout-2x2{ grid-template-columns: repeat(2, minmax(220px,1fr)); }
+}
+@media (max-width: 560px){
+  .cards-sobre.layout-1x4,
+  .cards-sobre.layout-2x2{ grid-template-columns: 1fr; }
+}
+

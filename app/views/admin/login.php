@@ -7,5 +7,5 @@
     <label>Contraseña</label><input name="password" type="password" required>
     <button class="btn" type="submit">Entrar</button>
   </form>
-  <p>Usuario demo: <code>admin@mercyshoes.local</code> — Contraseña: <code>admin123</code></p>
+  <!-- <p>Usuario demo: <code>admin@mercyshoes.local</code> — Contraseña: <code>admin123</code></p> -->
 </div>

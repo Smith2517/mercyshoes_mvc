@@ -508,14 +508,14 @@ form[action*="admin/product_"] :is(select, textarea, input):focus{
 /* Botones: MISMO tamaño y sin heredar width:100% del login */
 .grid[style*="grid-template-columns:1fr 2fr"] .table tbody tr > td:last-child form[action*="category_update"] .btn,
 .grid[style*="grid-template-columns:1fr 2fr"] .table tbody tr > td:last-child a.btn{
-  width: 136px !important;
-  height: 40px;
+  width: 100px !important;
+  height: 12px;
   padding: 0 12px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   border-radius: 8px;
-  flex: 0 0 136px;                    /* fija el ancho y evita estiramiento */
+  flex: 0 0 40px;                    /* fija el ancho y evita estiramiento */
 }
 
 /* Botón Eliminar en rojo solo aquí */
@@ -544,3 +544,86 @@ form[action*="admin/product_"] :is(select, textarea, input):focus{
     flex: 1 1 100%;
   }
 }
+
+/* ====== CATEGORÍAS — versión final ====== */
+
+/* Tabla estable + bordes negros */
+.form .table{
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid #000;
+}
+.form .table th,
+.form .table td{
+  padding: 12px 14px;
+  vertical-align: middle;
+  border-bottom: 1px solid #000 !important;
+  background: transparent !important;
+}
+.form .table thead th{ border-bottom: 1px solid #000 !important; }
+.form .table tbody tr:last-child td{ border-bottom: 0 !important; }
+
+/* Anchos por columna: #, Nombre, Descripción, Acciones */
+.form .table thead th:nth-child(1),
+.form .table tbody td:nth-child(1){ width: 64px; text-align: center; }
+
+.form .table thead th:nth-child(2),
+.form .table tbody td:nth-child(2){ width: 18%; }
+
+.form .table thead th:nth-child(3),
+.form .table tbody td:nth-child(3){
+  width: 45%;               /* ajusta 35–50% si quieres */
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.form .table thead th:nth-child(4),
+.form .table tbody td:nth-child(4){ width: 360px; } /* 320–380px ok */
+
+/* ACCIONES: apilado vertical (inputs arriba, botones debajo) */
+.form .table tbody tr > td:last-child{
+  display: flex !important;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+}
+.form .table tbody tr > td:last-child form[action*="category_update"]{
+  display: flex !important;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  margin: 0;
+}
+
+/* Inputs 100% de ancho */
+.form .table tbody tr > td:last-child input[name="name"],
+.form .table tbody tr > td:last-child input[name="description"]{
+  width: 100%;
+  box-sizing: border-box;
+  padding: 6px 8px;
+  line-height: 1.2;
+  font-size: 0.95em;
+  border-radius: 6px;
+  min-height: 0;
+  margin: 0;
+}
+
+
+
+/* Eliminar en rojo */
+.form .table tbody tr > td:last-child a.btn.light[href*="category_delete"]{
+  background: #e84118;
+  border-color: #e84118;
+  color: #fff;
+}
+.form .table tbody tr > td:last-child a.btn.light[href*="category_delete"]:hover{
+  background: #c23616;
+}
+
+/* (Opcional) wrapper si alguna vez algo se sale, sin romper el card */
+.form .table-wrap{ width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
