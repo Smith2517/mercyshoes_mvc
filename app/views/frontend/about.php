@@ -2,13 +2,46 @@
 
 <link rel="stylesheet" href="public/assets/css/styleproducts.css">
 
-<h1>Sobre nosotros</h1>
-<p><?php echo htmlspecialchars($s['company_name']); ?> nació con la misión de ofrecer calzado de calidad al mejor precio. En esta sección puedes actualizar el contenido desde el cPanel (Ajustes).</p>
-<ul>
-  <li>Correo: <?php echo htmlspecialchars($s['company_email']); ?></li>
-  <li>Teléfono: <?php echo htmlspecialchars($s['company_phone']); ?></li>
-  <li>Dirección: <?php echo htmlspecialchars($s['company_address']); ?></li>
-</ul>
+<section class="sobre-nosotros">
+  <h1 class="titulo-sobre">Sobre nosotros</h1>
+  <p class="intro-sobre">
+    <?php echo htmlspecialchars($s['company_name']); ?> nació con la misión de ofrecer calzado de calidad al mejor precio.
+    Puedes actualizar este contenido desde el cPanel (Ajustes).
+  </p>
+
+  <div class="cards-sobre layout-2x2">
+    <div class="card ">
+      <h3>🥿 Nuestra misión</h3>
+      <p>Brindar productos de alta calidad a precios justos, con atención cercana y confiable.</p>
+    </div>
+
+    <div class="card">
+      <h3>📧 Correo</h3>
+      <p>
+        <a href="mailto:<?php echo htmlspecialchars($s['company_email']); ?>">
+          <?php echo htmlspecialchars($s['company_email']); ?>
+        </a>
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>📞 Teléfono</h3>
+      <p>
+        <a href="tel:<?php echo preg_replace('/\s+/', '', htmlspecialchars($s['company_phone'])); ?>">
+          <?php echo htmlspecialchars($s['company_phone']); ?>
+        </a>
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>📍 Dirección</h3>
+      <p>
+        <?php echo htmlspecialchars($s['company_address']); ?>
+      </p>
+    </div>
+  </div>
+</section>
+
 
 <!-- ========= MODAL (mismo que products/home, SIN iframe) ========= -->
 <div id="modal-overlay" class="modal-overlay" hidden>
