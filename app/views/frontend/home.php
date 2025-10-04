@@ -87,6 +87,14 @@ document.addEventListener('DOMContentLoaded', function(){
     openModal(title);
     fetchHTML(url).then(html=>{
       modalContent.innerHTML = html;
+
+      // **Usar el <h1> del parcial como título y removerlo del cuerpo**
+      const h1 = modalContent.querySelector('h1');
+      if (h1) {
+        modalTitle.textContent = h1.textContent.trim();
+        h1.remove();
+      }
+
       wireInsideModal();
     }).catch(()=>{
       modalContent.innerHTML = '<p class="modal-error">No se pudo cargar la información. Intenta nuevamente.</p>';
@@ -155,7 +163,7 @@ document.addEventListener('DOMContentLoaded', function(){
   overlay.addEventListener('click', function(event){ if(event.target === overlay){ closeModal(); }});
   document.addEventListener('keydown', function(event){ if(event.key === 'Escape' && !overlay.hidden){ event.preventDefault(); closeModal(); } });
 
-  // *********** ÚNICO delegado global (no uses listeners individuales .add-to-cart) ***********
+  // *********** Delegado global (clave): interceptar enlaces ***********
   document.addEventListener('click', function(e){
     const a = e.target.closest && e.target.closest('a'); if(!a) return;
     const href = a.getAttribute('href') || '';
@@ -165,7 +173,7 @@ document.addEventListener('DOMContentLoaded', function(){
       e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();
       fetchHTML(href).then(()=> {
         fetchModal(BASE + '?r=cart/view', 'Carrito de compras');
-      }).catch(()=>{ /* no-op */ });
+      }).catch(()=>{});
       return;
     }
 
@@ -182,7 +190,16 @@ document.addEventListener('DOMContentLoaded', function(){
       fetchModal(href, 'Finalizar compra');
       return;
     }
+
+    // **Detalle de producto en modal (lo que faltaba)**
+    if (/\?r=product\/show\/\d+/.test(href)) {
+      e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();
+      const url = href + (href.includes('?') ? '&' : '?') + 'partial=1';
+      fetchModal(url, 'Detalle del producto');
+      return;
+    }
   }, true); // captura
 });
 </script>
+
 
