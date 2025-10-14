@@ -8,6 +8,45 @@ class CheckoutController extends Controller {
         return $isAjax || $hasPartial;
     }
 
+    protected function uploadReceipt(){
+        $file = $_FILES['payment_receipt'] ?? null;
+        if (empty($file['name'])) {
+            throw new Exception('Debes adjuntar la imagen del comprobante de pago.');
+        }
+
+        if (($file['error'] ?? UPLOAD_ERR_OK) !== UPLOAD_ERR_OK) {
+            throw new Exception('Ocurrió un error al subir el comprobante.');
+        }
+
+        $info = @getimagesize($file['tmp_name']);
+        if ($info === false) {
+            throw new Exception('El comprobante debe ser una imagen válida (JPG, PNG o WEBP).');
+        }
+
+        $allowed = [
+            IMAGETYPE_JPEG => 'jpg',
+            IMAGETYPE_PNG  => 'png',
+            IMAGETYPE_WEBP => 'webp',
+        ];
+        $type = $info[2];
+        if (!isset($allowed[$type])) {
+            throw new Exception('Formato de comprobante no soportado. Usa JPG, PNG o WEBP.');
+        }
+
+        if (!is_dir(UPLOAD_DIR)) {
+            mkdir(UPLOAD_DIR, 0775, true);
+        }
+
+        $filename = 'receipt_' . time() . '_' . bin2hex(random_bytes(4)) . '.' . $allowed[$type];
+        $destination = UPLOAD_DIR . $filename;
+
+        if (!move_uploaded_file($file['tmp_name'], $destination)) {
+            throw new Exception('No se pudo guardar el comprobante. Intenta nuevamente.');
+        }
+
+        return 'public/uploads/' . $filename;
+    }
+
     public function form(){
         $cart = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
         if (empty($cart)) { 
@@ -46,6 +85,7 @@ class CheckoutController extends Controller {
         ];
 
         try {
+            $data['payment_receipt'] = $this->uploadReceipt();
             $orderModel = new Order();
             $orderId = $orderModel->create($data, $cart);
 
@@ -66,6 +106,14 @@ class CheckoutController extends Controller {
 
         } catch (Exception $e) {
             $error = $e->getMessage();
+
+            if (!empty($data['payment_receipt'] ?? '')) {
+                $stored = UPLOAD_DIR . basename($data['payment_receipt']);
+                if (is_file($stored)) {
+                    @unlink($stored);
+                }
+                unset($data['payment_receipt']);
+            }
 
             if ($this->isPartialReq()) {
                 // En modal: devolver el form con el error (sin layout)

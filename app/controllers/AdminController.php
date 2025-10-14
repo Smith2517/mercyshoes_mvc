@@ -38,6 +38,12 @@ class AdminController extends Controller
         $orders = (new Order())->all();
         $this->render('admin/orders', compact('orders'), 'admin');
     }
+    public function receipts()
+    {
+        Auth::requireAdmin();
+        $orders = (new Order())->withReceipt();
+        $this->render('admin/receipts', compact('orders'), 'admin');
+    }
     public function order($id)
     {
         Auth::requireAdmin();
@@ -45,6 +51,12 @@ class AdminController extends Controller
         $order = $m->find($id);
         $items = $m->items($id);
         $this->render('admin/order_view', compact('order', 'items'), 'admin');
+    }
+    public function complaints()
+    {
+        Auth::requireAdmin();
+        $complaints = (new Complaint())->all();
+        $this->render('admin/complaints', compact('complaints'), 'admin');
     }
     public function status()
     {

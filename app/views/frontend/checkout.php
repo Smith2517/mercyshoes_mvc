@@ -21,15 +21,15 @@ $payAction = BASE_URL . '?r=checkout/pay' . ($inPartial ? '&partial=1' : '');
 <h1>Finalizar compra</h1>
 <?php if(isset($error)): ?><div class="alert">⚠️ <?php echo htmlspecialchars($error); ?></div><?php endif; ?>
 
-<div class="grid" style="grid-template-columns: 1.2fr .8fr; gap:20px">
-  <form class="form" method="post" action="<?php echo $payAction; ?>">
+<div class="checkout-layout">
+  <form class="form checkout-form" method="post" action="<?php echo $payAction; ?>" enctype="multipart/form-data">
 
     <!-- Columna Izquierda: Datos del cliente + Comprobante (dentro del form) -->
     <h3>Datos del cliente</h3>
-    <label>Nombre completo</label><input required name="name">
-    <label>Correo</label><input type="email" required name="email">
-    <label>Teléfono</label><input name="phone">
-    <label>Dirección</label><textarea name="address" rows="3"></textarea>
+    <label>Nombre completo</label><input required name="name" value="<?php echo htmlspecialchars($_POST['name'] ?? ''); ?>">
+    <label>Correo</label><input type="email" required name="email" value="<?php echo htmlspecialchars($_POST['email'] ?? ''); ?>">
+    <label>Teléfono</label><input name="phone" value="<?php echo htmlspecialchars($_POST['phone'] ?? ''); ?>">
+    <label>Dirección</label><textarea name="address" rows="3"><?php echo htmlspecialchars($_POST['address'] ?? ''); ?></textarea>
 
     <h3>Resumen</h3>
     <ul>
@@ -41,7 +41,8 @@ $payAction = BASE_URL . '?r=checkout/pay' . ($inPartial ? '&partial=1' : '');
     <hr>
     
     <h3>Subir Comprobante</h3>
-    <label></label><input type="file" name="image" accept="image/*">
+    <p style="margin:0 0 8px;font-size:14px;color:#555;">Adjunta la foto o captura del pago (formatos permitidos: JPG, PNG, WEBP).</p>
+    <input type="file" class="file-input" name="payment_receipt" accept="image/png,image/jpeg,image/webp" required>
 
     <br><br>
     <button class="btn" type="submit">Confirmar y generar comprobante</button>
@@ -49,7 +50,7 @@ $payAction = BASE_URL . '?r=checkout/pay' . ($inPartial ? '&partial=1' : '');
   </form>
 
   <!-- Columna Derecha: Resumen + Formas de pago (fuera del form, solo informativo) -->
-  <div>
+  <div class="checkout-info">
     
 
     <p><strong>Formas de pago: </strong></p>

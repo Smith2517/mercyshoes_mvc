@@ -172,3 +172,10 @@ body.modal-open { overflow: hidden; }
   .cards-sobre.layout-2x2{ grid-template-columns: 1fr; }
 }
 
+@media (max-width: 640px){
+  .grid{
+    flex-direction: column;
+    align-items: center;
+  }
+}
+

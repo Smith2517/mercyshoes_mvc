@@ -50,6 +50,7 @@ CREATE TABLE IF NOT EXISTS orders (
   customer_phone VARCHAR(60) DEFAULT '',
   customer_address VARCHAR(255) DEFAULT '',
   total DECIMAL(10,2) NOT NULL DEFAULT 0,
+  payment_receipt VARCHAR(255) NOT NULL DEFAULT '',
   status ENUM('PENDIENTE','PAGADO','ENVIADO','CANCELADO') DEFAULT 'PENDIENTE',
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -64,6 +65,19 @@ CREATE TABLE IF NOT EXISTS order_items (
   subtotal DECIMAL(10,2) NOT NULL,
   FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
   FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE RESTRICT
+);
+
+-- Complaints (Libro de Reclamaciones)
+CREATE TABLE IF NOT EXISTS complaints (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  full_name VARCHAR(200) NOT NULL,
+  document VARCHAR(60) DEFAULT '',
+  email VARCHAR(150) NOT NULL,
+  phone VARCHAR(60) DEFAULT '',
+  order_code VARCHAR(60) DEFAULT '',
+  type ENUM('Reclamo','Queja','Consulta') DEFAULT 'Reclamo',
+  description TEXT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Demo data
