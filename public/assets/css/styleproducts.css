@@ -179,3 +179,58 @@ body.modal-open { overflow: hidden; }
   }
 }
 
+/* ===== Ajustes mínimos para mobile (sobrescribe lo necesario) ===== */
+
+/* Evita scroll horizontal accidental */
+body { overflow-x: hidden; }
+
+/* Hero slider: asegura que las imágenes escalen */
+.hero-slider .slider-track { display: flex; }
+.hero-slider img { width: 100%; height: auto; display: block; }
+
+/* Texto del overlay del slider más legible en pantallas pequeñas
+   (usa !important para ganar a los estilos inline del HTML) */
+@media (max-width: 768px){
+  .hero-slider .slider-overlay h1 { font-size: 36px !important; line-height: 1.15 !important; text-align: center; }
+  .hero-slider .slider-overlay p  { font-size: 18px !important; line-height: 1.35 !important; text-align: center; }
+  .hero-slider .btn { display:inline-block; padding: 10px 16px; }
+}
+
+/* Sección con dos columnas en el HTML (usa inline style display:flex):
+   en móvil apílala en columna y centra contenido */
+@media (max-width: 900px){
+  section[style*="display:flex"]{
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    gap: 16px !important;
+  }
+  section[style*="display:flex"] > div { width: 100% !important; }
+  /* Imagen de la derecha: que no se desborde en móviles */
+  section[style*="display:flex"] img { max-width: 85% !important; height: auto !important; }
+  /* Títulos y párrafos grandes (tienen inline fonts): reduce en móvil */
+  section[style*="display:flex"] h1 { font-size: 32px !important; line-height: 1.2 !important; }
+  section[style*="display:flex"] p  { font-size: 18px !important; line-height: 1.6 !important; text-align: justify; }
+}
+
+/* Grilla de productos: ya se hace columna a 640px, solo asegura ancho fluido */
+@media (max-width: 640px){
+  .grid{
+    flex-direction: column;
+    align-items: center;
+  }
+  .card{
+    width: min(94vw, 420px);
+    max-width: 100%;
+  }
+  /* Botones uno debajo del otro si no hay espacio */
+  .card .p .btn{ display: block; width: 100%; }
+  .card .p .btn + .btn{ margin-left: 0; margin-top: 8px; }
+}
+
+/* Modal ya es fluido; un poquito más de margen lateral en móviles muy chicos */
+@media (max-width: 480px){
+  .modal{ width: calc(100% - 24px); padding: 20px 16px; }
+  .modal-title{ font-size: 22px; }
+}
+
