@@ -15,6 +15,8 @@
     <nav>
       <a href="<?php echo BASE_URL; ?>?r=admin/dashboard">Inicio</a>
       <a href="<?php echo BASE_URL; ?>?r=admin/orders">Pedidos</a>
+      <a href="<?php echo BASE_URL; ?>?r=admin/receipts">Comprobantes</a>
+      <a href="<?php echo BASE_URL; ?>?r=admin/complaints">Reclamaciones</a>
       <a href="<?php echo BASE_URL; ?>?r=admin/products">Productos</a>
       <a href="<?php echo BASE_URL; ?>?r=admin/categories">Categorías</a>
       <a href="<?php echo BASE_URL; ?>?r=admin/reports">Reportes</a>

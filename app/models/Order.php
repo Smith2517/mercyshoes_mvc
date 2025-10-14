@@ -5,8 +5,8 @@ class Order {
     public function create($data, $items) {
         $this->db->beginTransaction();
         try {
-            $stmt = $this->db->prepare('INSERT INTO orders (customer_name,customer_email,customer_phone,customer_address,total,status,created_at) VALUES (?,?,?,?,?,"PENDIENTE",NOW())');
-            $stmt->execute([$data['name'],$data['email'],$data['phone'],$data['address'],$data['total']]);
+            $stmt = $this->db->prepare('INSERT INTO orders (customer_name,customer_email,customer_phone,customer_address,total,payment_receipt,status,created_at) VALUES (?,?,?,?,?,?,"PENDIENTE",NOW())');
+            $stmt->execute([$data['name'],$data['email'],$data['phone'],$data['address'],$data['total'],$data['payment_receipt']]);
             $orderId = $this->db->lastInsertId();
 
             $stmtItem = $this->db->prepare('INSERT INTO order_items (order_id,product_id,quantity,unit_price,subtotal) VALUES (?,?,?,?,?)');
@@ -27,6 +27,9 @@ class Order {
     }
     public function all(){
         return $this->db->query('SELECT * FROM orders ORDER BY id DESC')->fetchAll();
+    }
+    public function withReceipt(){
+        return $this->db->query('SELECT * FROM orders WHERE payment_receipt <> "" ORDER BY id DESC')->fetchAll();
     }
     public function find($id){
         $s=$this->db->prepare('SELECT * FROM orders WHERE id=?'); $s->execute([$id]); return $s->fetch();
