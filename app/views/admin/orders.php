@@ -1,6 +1,6 @@
 <h1>Pedidos</h1>
 <table class="table">
-  <thead><tr><th>#</th><th>Cliente</th><th>Fecha</th><th>Total</th><th>Estado</th><th>Comprobante</th><th></th></tr></thead>
+  <thead><tr><th>#</th><th>Cliente</th><th>Fecha</th><th>Total</th><th>Estado</th><th>Comprobante</th><th>Detalle</th></tr></thead>
   <tbody>
   <?php foreach($orders as $o): ?>
     <tr>

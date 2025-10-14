@@ -4,7 +4,7 @@
 <?php if(!empty($order['payment_receipt'])): ?>
   <?php $receiptUrl = rtrim(preg_replace('#/index\.php$#','', BASE_URL), '/') . '/' . ltrim($order['payment_receipt'],'/'); ?>
   <p><strong>Comprobante:</strong> <a class="btn light" href="<?php echo htmlspecialchars($receiptUrl); ?>" target="_blank" rel="noopener">Ver imagen</a></p>
-  <div style="max-width:320px; margin: 0 0 20px;">
+  <div style="max-width:200px; margin: 0 0 20px;">
     <img src="<?php echo htmlspecialchars($receiptUrl); ?>" alt="Comprobante de pago" style="width:100%; border-radius:12px; box-shadow:0 8px 18px rgba(0,0,0,0.12);">
   </div>
 <?php endif; ?>
