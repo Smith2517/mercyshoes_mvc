@@ -80,6 +80,15 @@ CREATE TABLE IF NOT EXISTS complaints (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Customer testimonials / reviews
+CREATE TABLE IF NOT EXISTS testimonials (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  author_name VARCHAR(120) NOT NULL,
+  rating TINYINT NOT NULL DEFAULT 5,
+  comment TEXT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 -- Demo data
 INSERT INTO users (name,email,password_hash) VALUES
 ('Admin','admin@mercyshoes.local', '$2y$10$P4nUvZlbrOeWqUu4BzXvVuF5l0iK0u/7bG6mqf0Yc7b5KQx1y0VnG'); -- password: admin123
@@ -91,6 +100,11 @@ INSERT INTO products (category_id,name,description,price,stock,image) VALUES
 (1,'Stiletto Negro','Tacón fino y punta elegante.',159.90,10,''),
 (2,'Zapatilla Urbana','Estilo casual, suela cómoda.',119.00,20,''),
 (3,'Sandalia Dorada','Brillo y comodidad.',89.50,15,'');
+
+INSERT INTO testimonials (author_name, rating, comment) VALUES
+('María G.', 5, 'La calidad es impresionante y llegaron super rápido. ¡Los recomiendo!'),
+('Valeria P.', 4, 'Bonitos modelos y buena atención. Elegí mi talla sin problemas.'),
+('Lucía S.', 5, 'Me encanta lo cómodos que son. Pediré otro par pronto.');
 
 -- Default settings row
 INSERT INTO settings (company_name, company_email, company_phone, company_address, company_ruc, logo_path)

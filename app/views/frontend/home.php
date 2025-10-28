@@ -45,6 +45,76 @@
 <?php endforeach; ?>
 </div>
 
+<section class="testimonials" id="opiniones">
+  <div class="testimonials__intro">
+    <h2>Lo que opinan nuestras clientas</h2>
+    <p>Historias reales de mujeres que ya caminan con Mercyshoes. ¡Tu experiencia también puede inspirar a otras!</p>
+  </div>
+
+  <?php if (!empty($feedback) && !empty($feedback['message'])): ?>
+    <div class="testimonial-alert <?php echo $feedback['type'] === 'success' ? 'success' : 'error'; ?>">
+      <?php echo htmlspecialchars($feedback['message']); ?>
+    </div>
+  <?php endif; ?>
+
+  <div class="testimonials__layout">
+    <div class="testimonials__list" aria-live="polite">
+      <?php if (!empty($testimonials)): ?>
+        <?php foreach ($testimonials as $testimonial): ?>
+          <article class="testimonial-card">
+            <header>
+              <div class="testimonial-stars" aria-label="Calificación: <?php echo (int)$testimonial['rating']; ?> de 5">
+                <?php for ($i = 1; $i <= 5; $i++): ?>
+                  <span class="star <?php echo $i <= (int)$testimonial['rating'] ? 'filled' : ''; ?>" aria-hidden="true">★</span>
+                <?php endfor; ?>
+              </div>
+              <h3><?php echo htmlspecialchars($testimonial['author_name']); ?></h3>
+              <time datetime="<?php echo htmlspecialchars($testimonial['created_at']); ?>">
+                <?php echo date('d/m/Y', strtotime($testimonial['created_at'])); ?>
+              </time>
+            </header>
+            <p>“<?php echo nl2br(htmlspecialchars($testimonial['comment'])); ?>”</p>
+          </article>
+        <?php endforeach; ?>
+      <?php else: ?>
+        <p class="testimonial-empty">Aún no hay comentarios publicados. ¡Sé la primera en dejar el tuyo!</p>
+      <?php endif; ?>
+    </div>
+
+    <div class="testimonial-form-wrapper">
+      <h3>Comparte tu experiencia</h3>
+      <form class="testimonial-form" method="post" action="<?php echo BASE_URL; ?>?r=home/testimonial_submit">
+        <div class="rating-group">
+          <span>¿Cómo calificarías tu compra?</span>
+          <div class="rating-input">
+            <?php $selectedRating = (int)($oldTestimonial['rating'] ?? 5); ?>
+            <?php for ($i = 5; $i >= 1; $i--): ?>
+              <input type="radio" id="rating-<?php echo $i; ?>" name="rating" value="<?php echo $i; ?>" <?php echo $selectedRating === $i ? 'checked' : ''; ?> required>
+              <label for="rating-<?php echo $i; ?>" title="<?php echo $i; ?> estrella<?php echo $i > 1 ? 's' : ''; ?>">
+                <span class="sr-only"><?php echo $i; ?> estrella<?php echo $i > 1 ? 's' : ''; ?></span>
+                ★
+              </label>
+            <?php endfor; ?>
+          </div>
+        </div>
+
+        <label class="input-group">
+          <span>Nombre o apodo</span>
+          <input type="text" name="author_name" value="<?php echo htmlspecialchars($oldTestimonial['author_name'] ?? ''); ?>" maxlength="120" required>
+        </label>
+
+        <label class="input-group">
+          <span>Tu comentario</span>
+          <textarea name="comment" rows="4" maxlength="600" required><?php echo htmlspecialchars($oldTestimonial['comment'] ?? ''); ?></textarea>
+        </label>
+
+        <button type="submit" class="btn">Enviar opinión</button>
+        <p class="testimonial-help">Revisamos cada testimonio antes de publicarlo para mantener una comunidad segura.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
 <!-- ========= MODAL (MISMO DE products.php, SIN IFRAME) ========= -->
 <div id="modal-overlay" class="modal-overlay" hidden>
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">

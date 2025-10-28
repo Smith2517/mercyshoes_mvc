@@ -3,7 +3,16 @@ class HomeController extends Controller {
     public function index(){
         $m = new Product();
         $products = $m->paginate(12);
-        $this->render('frontend/home', compact('products'));
+
+        $testimonials = (new Testimonial())->latest(6);
+        $feedback = $_SESSION['testimonial_feedback'] ?? null;
+        if ($feedback) {
+            unset($_SESSION['testimonial_feedback']);
+        }
+
+        $oldTestimonial = $feedback['old'] ?? ['author_name' => '', 'rating' => 5, 'comment' => ''];
+
+        $this->render('frontend/home', compact('products', 'testimonials', 'feedback', 'oldTestimonial'));
     }
     public function about(){
         $settings = (new Setting())->get();
@@ -47,6 +56,47 @@ class HomeController extends Controller {
         (new Complaint())->create($data);
         $success = 'Tu registro en el libro de reclamaciones se ha enviado correctamente. Pronto nos pondremos en contacto.';
         $this->render('frontend/complaint', compact('success'));
+    }
+
+    public function testimonial_submit(){
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            $this->redirect('home/index');
+        }
+
+        $data = [
+            'author_name' => trim($_POST['author_name'] ?? ''),
+            'rating' => (int)($_POST['rating'] ?? 0),
+            'comment' => trim($_POST['comment'] ?? ''),
+        ];
+
+        $errors = [];
+        if ($data['author_name'] === '') {
+            $errors[] = 'Ingresa tu nombre o apodo.';
+        }
+        if ($data['rating'] < 1 || $data['rating'] > 5) {
+            $errors[] = 'Selecciona una calificación válida.';
+        }
+        if ($data['comment'] === '') {
+            $errors[] = 'Cuéntanos tu experiencia en el cuadro de comentarios.';
+        }
+
+        if ($errors) {
+            $_SESSION['testimonial_feedback'] = [
+                'type' => 'error',
+                'message' => implode(' ', $errors),
+                'old' => $data,
+            ];
+            $this->redirect('home/index');
+        }
+
+        (new Testimonial())->create($data);
+
+        $_SESSION['testimonial_feedback'] = [
+            'type' => 'success',
+            'message' => '¡Gracias por compartir tu opinión con Mercyshoes!',
+        ];
+
+        $this->redirect('home/index');
     }
 }
 ?>
