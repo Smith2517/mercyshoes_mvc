@@ -1,16 +1,16 @@
 /* --- Catálogo de productos (horizontal + responsive) --- */
 .grid {
-  display: flex;               /* fila por defecto */
-  flex-direction: row;         /* fuerza horizontal */
-  flex-wrap: wrap;             /* salta a la siguiente línea cuando no hay espacio */
-  gap: 24px;                   /* espacio entre cards */
-  justify-content: center;     /* centra las filas */
-  align-items: stretch;        /* mismas alturas visuales */
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+  align-items: stretch;
 }
 
 /* Cada card ocupa entre 240 y 320px y se adapta al espacio */
 .card {
-  flex: 1 1 260px;             /* grow | shrink | base */
+  flex: 1 1 260px;
   min-width: 240px;
   max-width: 320px;
   display: flex;
@@ -29,13 +29,13 @@
 
 .card img {
   width: 100%;
-  aspect-ratio: 4 / 3;         /* altura consistente */
+  aspect-ratio: 4 / 3;
   object-fit: cover;
   border-bottom: 1px solid #eee;
 }
 
 .card .p {
-  flex: 1;                     /* empuja botones al final si hace falta */
+  flex: 1;
   padding: 16px;
   text-align: center;
   display: flex;
@@ -65,7 +65,6 @@
   padding: 24px;
   z-index: 1000;
 }
-
 .modal-overlay.active { display: flex; }
 
 .modal {
@@ -78,36 +77,13 @@
   padding: 32px 28px;
   position: relative;
 }
-
-.modal-title {
-  margin: 0 0 16px;
-  font-size: 26px;
-  text-align: left;
-}
-
-.modal-close {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  border: none;
-  background: none;
-  font-size: 28px;
-  cursor: pointer;
-  line-height: 1;
-}
-
-.modal-loading,
-.modal-error {
-  text-align: center;
-  padding: 40px 0;
-  color: #555;
-}
-
+.modal-title { margin: 0 0 16px; font-size: 26px; text-align: left; }
+.modal-close { position: absolute; top: 12px; right: 12px; border: none; background: none; font-size: 28px; cursor: pointer; line-height: 1; }
+.modal-loading, .modal-error { text-align: center; padding: 40px 0; color: #555; }
 .modal-error { color: #b3261e; }
-
 body.modal-open { overflow: hidden; }
 
-/* Opcional: estilos rápidos para "Sobre nosotros" */
+/* "Sobre nosotros" */
 .sobre-nosotros { margin: 24px 0; }
 .titulo-sobre { font-size: 32px; text-align: center; margin: 0 0 8px; }
 .intro-sobre { text-align: center; margin: 0 auto 20px; max-width: 800px; }
@@ -117,7 +93,6 @@ body.modal-open { overflow: hidden; }
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 16px;
 }
-
 .cards-sobre .card {
   background: #fff;
   border: 1px solid #eee;
@@ -125,79 +100,51 @@ body.modal-open { overflow: hidden; }
   padding: 16px;
   box-shadow: 0 6px 18px rgba(0,0,0,.04);
 }
-
 .cards-sobre .card h3 { margin: 0 0 8px; font-size: 18px; }
 .cards-sobre .card p  { margin: 0; line-height: 1.5; }
-
 .cards-sobre a { text-decoration: none; }
 .cards-sobre a:hover { text-decoration: underline; }
 
 /* Contenedor centrado y separación */
 .cards-sobre{
-  max-width: 1100px;   /* ancho legible */
+  max-width: 1100px;
   margin: 16px auto;
   display: grid;
-  gap: 16px;           /* separación entre tarjetas */
+  gap: 16px;
 }
+.cards-sobre.layout-1x4{ grid-template-columns: repeat(4, minmax(220px, 1fr)); }
+.cards-sobre.layout-2x2{ grid-template-columns: repeat(2, minmax(280px, 1fr)); }
+.cards-sobre .card{ background:#fff; border:1px solid #eee; border-radius:12px; padding:16px; box-shadow:0 6px 18px rgba(0,0,0,.04); }
 
-/* === Layout 1: una sola fila (1x4 en desktop) === */
-.cards-sobre.layout-1x4{
-  grid-template-columns: repeat(4, minmax(220px, 1fr));
-}
-
-/* === Layout 2: dos por dos (2x2 en desktop) === */
-.cards-sobre.layout-2x2{
-  grid-template-columns: repeat(2, minmax(280px, 1fr));
-}
-
-/* Tarjeta (puedes mantener lo que ya tienes) */
-.cards-sobre .card{
-  background:#fff;
-  border:1px solid #eee;
-  border-radius:12px;
-  padding:16px;
-  box-shadow:0 6px 18px rgba(0,0,0,.04);
-}
-
-/* Responsive: en tablets baja a 2 columnas; en móvil, 1 */
 @media (max-width: 1100px){
   .cards-sobre.layout-1x4{ grid-template-columns: repeat(3, minmax(220px,1fr)); }
 }
 @media (max-width: 900px){
-  .cards-sobre.layout-1x4,
-  .cards-sobre.layout-2x2{ grid-template-columns: repeat(2, minmax(220px,1fr)); }
+  .cards-sobre.layout-1x4, .cards-sobre.layout-2x2{ grid-template-columns: repeat(2, minmax(220px,1fr)); }
 }
 @media (max-width: 560px){
-  .cards-sobre.layout-1x4,
-  .cards-sobre.layout-2x2{ grid-template-columns: 1fr; }
+  .cards-sobre.layout-1x4, .cards-sobre.layout-2x2{ grid-template-columns: 1fr; }
 }
 
+/* Responsivo productos */
 @media (max-width: 640px){
-  .grid{
-    flex-direction: column;
-    align-items: center;
-  }
+  .grid{ flex-direction: column; align-items: center; }
+  .card{ width: min(94vw, 420px); max-width: 100%; }
+  .card .p .btn{ display: block; width: 100%; }
+  .card .p .btn + .btn{ margin-left: 0; margin-top: 8px; }
 }
 
-/* ===== Ajustes mínimos para mobile (sobrescribe lo necesario) ===== */
-
-/* Evita scroll horizontal accidental */
+/* Ajustes mínimos mobile */
 body { overflow-x: hidden; }
-
-/* Hero slider: asegura que las imágenes escalen */
 .hero-slider .slider-track { display: flex; }
 .hero-slider img { width: 100%; height: auto; display: block; }
 
-/* Texto del overlay del slider más legible en pantallas pequeñas
-   (usa !important para ganar a los estilos inline del HTML) */
 @media (max-width: 768px){
   .hero-slider .slider-overlay h1 { font-size: 36px !important; line-height: 1.15 !important; text-align: center; }
   .hero-slider .slider-overlay p  { font-size: 18px !important; line-height: 1.35 !important; text-align: center; }
   .hero-slider .btn { display:inline-block; padding: 10px 16px; }
 }
 
-/* Sección con dos columnas en el HTML (usa inline style display:flex):
-   en móvil apílala en columna y centra contenido */
 @media (max-width: 900px){
   section[style*="display:flex"]{
     flex-direction: column !important;
@@ -206,31 +153,88 @@ body { overflow-x: hidden; }
     gap: 16px !important;
   }
   section[style*="display:flex"] > div { width: 100% !important; }
-  /* Imagen de la derecha: que no se desborde en móviles */
   section[style*="display:flex"] img { max-width: 85% !important; height: auto !important; }
-  /* Títulos y párrafos grandes (tienen inline fonts): reduce en móvil */
   section[style*="display:flex"] h1 { font-size: 32px !important; line-height: 1.2 !important; }
   section[style*="display:flex"] p  { font-size: 18px !important; line-height: 1.6 !important; text-align: justify; }
 }
 
-/* Grilla de productos: ya se hace columna a 640px, solo asegura ancho fluido */
-@media (max-width: 640px){
-  .grid{
-    flex-direction: column;
-    align-items: center;
-  }
-  .card{
-    width: min(94vw, 420px);
-    max-width: 100%;
-  }
-  /* Botones uno debajo del otro si no hay espacio */
-  .card .p .btn{ display: block; width: 100%; }
-  .card .p .btn + .btn{ margin-left: 0; margin-top: 8px; }
-}
-
-/* Modal ya es fluido; un poquito más de margen lateral en móviles muy chicos */
 @media (max-width: 480px){
   .modal{ width: calc(100% - 24px); padding: 20px 16px; }
   .modal-title{ font-size: 22px; }
 }
 
+/* ======================
+   ESTILOS CONTACTO (acotados)
+   ====================== */
+.contacto {
+  text-align: center;
+  padding: 60px 20px;
+  background: linear-gradient(135deg, #fcc2eb, #ededed, #f9bfcc);
+}
+.titulo-contacto {
+  font-size: 48px;
+  margin-bottom: 10px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  color: #0f1833;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+}
+.intro-contacto { font-size: 18px; color: #444; margin-bottom: 40px; }
+.cards-contacto { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
+
+/* SOLO dentro de .cards-contacto para no pisar las cards del catálogo */
+.cards-contacto .card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 30px 20px;
+  width: 280px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.cards-contacto .card:hover { transform: translateY(-8px); box-shadow: 0 12px 25px rgba(0,0,0,0.15); }
+.cards-contacto .card h3 { font-size: 22px; color: #e91e63; margin-bottom: 12px; }
+.cards-contacto .card p  { font-size: 16px; color: #151515; }
+.cards-contacto .card a  { text-decoration: none; color: #0f1833; font-weight: bold; }
+.cards-contacto .card a:hover { color: #e91e63; }
+
+/* === OVERRIDES FINALES: mostrar SIEMPRE precio y botones en el catálogo === */
+.grid .card{ overflow: visible !important; }
+.grid .card .p{
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+  padding: 16px !important;
+  background: #fff !important;
+  color: #111 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  max-height: none !important;
+  overflow: visible !important;
+  position: static !important;
+}
+.grid .card .p strong,
+.grid .card .p small,
+.grid .card .p .price,
+.grid .card .p .btn{
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+.grid .card .p .price{ font-weight: 700 !important; }
+.grid .card .p .btn{
+  border: 1px solid #d1d5db !important;
+  background: #111827 !important;
+  color: #fff !important;
+  text-decoration: none !important;
+  line-height: 1.2 !important;
+  pointer-events: auto !important;
+}
+.grid .card .p .btn.light{
+  background: #fff !important;
+  color: #111827 !important;
+  border: 1px solid #d1d5db !important;
+}
+@media (max-width: 640px){
+  .grid .card .p .btn{ width: 100% !important; }
+  .grid .card .p .btn + .btn{ margin-left: 0 !important; margin-top: 8px !important; }
+}
